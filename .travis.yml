@@ -1,0 +1,18 @@
+---
+language: generic
+sudo: false
+
+services:
+  - docker
+
+env:
+  global: {}
+
+before_script:
+  - echo ${QUAYIO_PASSWORD} | docker login -u="datawire+releasebot" --password-stdin quay.io
+
+script:
+  - docker build -t quay.io/datawire/kops:latest .
+  - docker push quay.io/datawire/kops:latest .
+
+after_script: []
